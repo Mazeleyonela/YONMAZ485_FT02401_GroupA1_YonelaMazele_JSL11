@@ -49,6 +49,7 @@ function toggleModal(show, modal = elements.newTaskModal) {
     });
 }
 }
+toggleModal();
 //let activeBoard = ""
 
 function fetchAndDisplayBoardsAndTasks() {
@@ -89,6 +90,7 @@ function fetchAndDisplayBoardsAndTasks() {
       refreshTasksUI();
   }
 }
+fetchAndDisplayBoardsAndTasks();
 
 
 // Creates different boards in the DOM
@@ -126,6 +128,8 @@ function displayBoards(boards) {
       boardsContainer.appendChild(boardElement);
   });
 }
+displayBoards();
+
 function filterAndDisplayTasksByBoard(boardName) {
   // Fetch tasks from local storage
   const tasks = getTasks();
@@ -171,12 +175,13 @@ function filterAndDisplayTasksByBoard(boardName) {
       });
   });
 }
-
+filterAndDisplayTasksByBoard();
 
 
 function refreshTasksUI() {
   filterAndDisplayTasksByBoard(activeBoard);
 };
+refreshTasksUI();
 
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
@@ -191,6 +196,8 @@ function styleActiveBoard(boardName) {
     }
   });
 }
+styleActiveBoard();
+
 function addTaskToUI(task) {
   // Find the appropriate column based on task status
   const column = document.querySelector(`.column-div[data-status="${task.status}"]`);
@@ -217,6 +224,8 @@ function addTaskToUI(task) {
   // Append the task element to the tasks container
   tasksContainer.appendChild(taskElement);
 }
+addTaskToUI();
+
 function setupEventListeners() {
   // Cancel editing task event listener
   const cancelEditBtn = document.getElementById('cancel-edit-btn');
@@ -248,7 +257,7 @@ function setupEventListeners() {
   });
 
   // Theme switch event listener
-  elements.themeSwitch.addEventListener('change', toggleTheme);
+  elements.themeSwitch.addEventListener('click', toggleTheme);
 
   // Show Add New Task Modal event listener
   elements.createNewTaskBtn.addEventListener('click', () => {
@@ -259,6 +268,7 @@ function setupEventListeners() {
   // Add new task form submission event listener
   elements.modalWindow.addEventListener('submit', addTask);
 }
+setupEventListeners();
 
 
 // Toggles tasks modal
@@ -310,7 +320,7 @@ function addTask(event) {
       console.error('Failed to create a new task.');
   }
 }
-
+addTask();
 
 
 function toggleSidebar(show) {
@@ -319,7 +329,7 @@ function toggleSidebar(show) {
     sidebar.style.display = show ? 'block' : 'none';
   }
 }
- 
+toggleSidebar();
 
 function toggleTheme() {
   document.body.classList.toggle('light-theme');
@@ -327,6 +337,8 @@ function toggleTheme() {
   const isLightTheme = document.body.classList.contains('light-theme');
   localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled');
 }
+toggleTheme();
+
 function openEditTaskModal(task) {
   // Ensure that the task object is defined and contains the necessary properties
   if (!task || typeof task !== 'object' || !task.title || !task.description || !task.status) {
@@ -353,6 +365,7 @@ function openEditTaskModal(task) {
   // Show the edit task modal using the toggleModal function
   toggleModal(true, elements.editTaskModal);
 }
+openEditTaskModal();
 
 function saveTaskChanges(taskId) {
   // Validate the provided taskId
@@ -394,6 +407,7 @@ function saveTaskChanges(taskId) {
       console.error('Failed to update the task.');
   }
 }
+saveTaskChanges();
 
 document.addEventListener('DOMContentLoaded', function() {
   init(); // init is called after the DOM is fully loaded
@@ -413,5 +427,6 @@ function init() {
   // Fetch and display initial set of boards and tasks
   fetchAndDisplayBoardsAndTasks();
 }
+init();
 
 
